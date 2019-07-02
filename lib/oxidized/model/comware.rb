@@ -2,7 +2,7 @@ class Comware < Oxidized::Model
   # HP (A-series)/H3C/3Com Comware
 
   # sometimes the prompt might have a leading nul or trailing ASCII Bell (^G)
-  prompt /^\0*(<[\w.-]+>).?$/
+  prompt /^\0*(<[\w\s\/.-]+>).?$/
   comment '# '
 
   # example how to handle pager
@@ -36,10 +36,10 @@ class Comware < Oxidized::Model
     # the pager cannot be disabled before _cmdline-mode on.
     if vars :comware_cmdline
       post_login do
-        send "_cmdline-mode on\n"
-        send "y\n"
-        send vars(:comware_cmdline) + "\n"
-        send "xtd-cli-mode on\n"
+#        send "_cmdline-mode on\n"
+#        send "y\n"
+#        send vars(:comware_cmdline) + "\n"
+        send "xtd-cli-mode\n"
         send "y\n"
         send vars(:comware_cmdline) + "\n"
       end
